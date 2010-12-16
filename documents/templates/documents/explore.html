@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}{{super()}}Documentos{% endblock %}
+{% block content %}
+<div class="container_16">
+<h1>Documentos</h1>
+<ul id="documents">
+    <li class="grid_4">
+        <div class="preview">
+            <img src="{% media_url "/documents/1.png" %}" width="219" >
+            <span class="fold"></span>
+            <div class="options"><a class="view" href="{% url 'view-document' id=1 %}">Vista Previa</a><a href="{% url 'download-document' id=1 %}" class="download">Descargar</a></div>
+        </div>
+        <b>Hoja de ejercicios 1</b>
+    </li>
+    <li class="grid_4">
+        <div class="preview">
+            <img src="{% media_url "/documents/2.png" %}" width="219" >
+            <span class="fold"></span>
+            <div class="options"><a class="view" href="{% url 'view-document' id=1 %}">Vista Previa</a><a class="download" href="{% url 'download-document' id=1 %}">Descargar</a><a class="edit" href="{% url 'edit-document' id=1 %}">Editar</a></div>
+        </div>
+        <b>Hoja dos</b>
+    </li>
+
+</ul>
+</div>
+{% endblock %}
