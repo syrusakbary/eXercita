@@ -4,7 +4,7 @@ from django.http import HttpResponse
 from coffin.template import add_to_builtins
 from documents.forms import DocumentForm
 
-add_to_builtins('mediasync-jinja2.media')
+add_to_builtins('jinja2-mediasync.media')
 
 from coffin.shortcuts import render_to_response
 def explore(request):
