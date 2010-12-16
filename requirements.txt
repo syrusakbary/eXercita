@@ -1,5 +1,5 @@
 Django==1.2.3
 Jinja2==2.5.5
 -e git+https://github.com/dcramer/coffin.git/#egg=coffin
-django-mediasync>=1.0
+-e git+https://github.com/sunlightlabs/django-mediasync.git/#egg=mediasync
 -e git+https://github.com/SyrusAkbary/jinja2-mediasync.git/#egg=jinja2-mediasync
