@@ -154,7 +154,7 @@ LOGGING = {
 }
 
 MEDIASYNC = {
-    'BACKEND': 'boto.backends.s3',
+    'BACKEND': 'mediasync.backends.s3',
     'AWS_KEY': "s3_key",
     'AWS_SECRET': "s3_secret",
     'AWS_BUCKET': "bucket_name",
