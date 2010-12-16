@@ -1,0 +1,4 @@
+Django==1.2.3
+Jinja2==2.5.5
+-e git+https://github.com/dcramer/coffin.git/#egg=coffin
+django-mediasync==dev
