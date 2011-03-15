@@ -1,6 +1,6 @@
 {% extends "base.html" %}
 {% block title %}{{super()}}Documentos{% endblock %}
-{% block content %}
+{% block container %}
 <ul id="edit-bar">
     <li class="">
         <a href="#basic">
@@ -44,11 +44,14 @@
  {% for field in names %}
     {% set field = form[field] %}
     {#<label for="id_{{ field.name }}" class="pull5 main">{{field.label}}</label>#}
-       <div> {{field.label_tag(attrs={'class':" grid_5 main"})}}<div class="grid_11">{{ field }}{% if field.help_text %}<span class="help">{{ field.help_text }}</span>{% endif %}</div>
+       
+       <div{% if field.errors|count >0 %} class="error"{% endif %}>{{field.label_tag(attrs={'class':" grid_5 main "})}}<div class="grid_11">{{ field }}{{field.errors}}{% if field.help_text %}<span class="help">{{ field.help_text }}</span>{% endif %}</div>
        <div class="clear"></div>
        </div>
 {% endfor %}
 {%- endmacro %}
+<form action="" method="post" id="document-form">
+{{csrf_token()}}
 <div id="edit-content" class="container_16">
 {#<div> {{draw_fields(form.fields)}}</div>#}
     <div id="edit-basic" class="inner">
@@ -69,16 +72,11 @@
         <span class="noexercices">Aún no ha añadido ningún ejercicio.</span>
         <ul class="exercices">
         </ul>
+        {{ form['exercises'] }}{{form['exercises'].errors}}
     </div>
     <div class="grid_9">
-        <input type="text" name="search" id="instant-exercices" class="defaultText" title="Filtrar..." />
+        <input type="text" name="search" id="instant-exercices" class="defaultText" title="Filtrar..." autocomplete="off"/>
         <ol id="exercices-results">
-            <li class="e"><span class="tl"><h3>Los hexagramas del yin y el yang</h3><a class="button add"><span>añadir</span></a></span><div class="s">En la filosofía tradicional china, la dualidad complementaria se expresa mediante los símbolos yin y yang. En el I Ching (El libro de los cambios), estos...</div></li>
-            <li class="e"><span class="tl"><h3>AVE CESAR: DCH FHADV</h3><a class="button add"><span>añadir</span></a></span><div class="s">El dictador perpetuus Julio César utilizaba un código cuando quería mantener en secreto un mensaje. El cifrado consistía en sustituir la primera letra del alfabeto...</div></li>
-            <li class="e"><span class="tl"><h3>Los cubos de Nicómaco</h3><a class="button add"><span>añadir</span></a></span><div class="s">Considera la siguiente propiedad descubierta por Nicómaco de Gerasa:
-Sumando el primer impar, se obtiene el primer cubo...</div></li>
-            <li class="e"><span class="tl"><h3>Un dibujo de Escher</h3><a class="button add"><span>añadir</span></a></span><div class="s">Observa el dibujo de M. C. Escher (1898–1972) que aparece en la figura ?? titulado Wentelteefje. No pretendemos en este ejercicio imitar la maestría de Escher al dibujar sus...</div></li>
-            
         </ol>
     </div>
     </div>
@@ -89,10 +87,13 @@ Sumando el primer impar, se obtiene el primer cubo...</div></li>
 <div id="edit-footer" class="container_16">
     <div class="prefix_5 grid_5"><input type="submit" value="Guardar" /></div>
 </div>
+</form>
+
 {% endblock %}
 
 {% block scripts %}
 {{super()}}
+       {{js("scripts/joined.js")}}
    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
     <script type="text/javascript">
     function setEditSection (hash) {
@@ -116,23 +117,74 @@ Sumando el primer impar, se obtiene el primer cubo...</div></li>
     
         $(document).ready(function() {
         
-    add = function  (name) {
-        $('#document-preview-exercices .exercices').append('<li><span class="position"></span><b>'+name+'</b></li>');
+    add = function  (exercise) {
+        checked = exercise.checked!==undefined?exercise.checked:[];
+        
+        h = '<li id="exercise-'+exercise.id+'"><span class="position"></span><b>'+exercise.title+'</b>';
+        names = {'hint':'Pista','part':'Apartado','solution':'Solucion','example':'Ejemplo'};
+        $.each(exercise.sections,function(key,value){
+            h += '<dl><dt>'+names[key]+'</dt>';
+            $.each(value,function(i,s){
+                h += '<dd><input type="checkbox" name="'+s+'" value="'+s+'" '+(($.inArray(s,checked)>-1)?'checked':'')+'>'+s+'</dd>';
+            });
+            h += '</dl>';
+        });
+        
+        h += '<div class="clear"></div></li>';
+        $('#document-preview-exercices .exercices').append(h);
+    };
+    addMultiple = function (exercises) {
+        $.each(exercises,function(index,exercise){
+            add(exercise);
+        });
     }
-    $('#exercices-results a.add').click(function(e) {
-        add($(this).parent().find('h3').text());
-        updateExercices($( "#document-preview-exercices .exercices" ));
+    {% if exercises %}addMultiple({{exercises}});{% endif %}
+    function checkExercises() {
+    exers = []
+    $('#document-preview-exercices li').each(function(){
+        $$ = $(this);
+        a = $$.attr('id').slice('exercise-'.length);
+        checked = []
+        $$.find('input:checked').each(function(){
+            checked.push($(this).attr('name'));
+        });
+        if (checked.length>0) {
+            a += '['+checked.join(',')+']';
+        }
+        exers.push(a);
     });
+    return exers.join(';');
+    }
+    
+    $('#document-form').submit(function() {
+        $('#id_exercises').val(checkExercises());
+    });
+    
+    var exercises = $('#exercices-results');
+    function showResults(data) {
+        //console.log(data);
+        exercises.empty();
+        $.each(data.exercises,function(index,exercise){
+            elem = $('<li class="e" id="exercise-'+exercise.id+'"><span class="tl"><h3>'+exercise.title+'</h3><a class="button-small add"><span>+</span></a></span><div class="s">'+exercise.description+'</div></li>');
+            elem.find('.add').click(function(e) {
+                
+                add(exercise);
+        updateExercices($( "#document-preview-exercices .exercices" ));
+            });
+        exercises.append(elem);
+        });
+    }
             var runningRequest = false;
     var request;
    //Identify the typing action
-    $('input#instant-exercices').keyup(function(e){
-        e.preventDefault();
+    $('input#instant-exercices').keydown(function(e){
+        //e.preventDefault();
+        //if ($(this).val().length < 3) return;
         var $q = $(this);
-
+        code = e.keyCode ? e.keyCode : e.which;
         if($q.val() == ''){
             $('#exercices-results').html('');
-            return false;
+            //return false;
         }
 
         //Abort opened requests to speed it up
@@ -141,10 +193,12 @@ Sumando el primer impar, se obtiene el primer cubo...</div></li>
         }
 
         runningRequest=true;
-        request = $.getJSON('search.php',{
-            q:$q.val()
-        },function(data){           
-            showResults(data,$q.val());
+        request = $.getJSON("http://exercita.local/ejercicios.json",{
+            q:$q.val()+String.fromCharCode(code)
+        },function(data){     
+        //alert(data.results);
+            //console.log(data.q);      
+            showResults(data);
             runningRequest=false;
         });
     });    
@@ -199,7 +253,7 @@ Sumando el primer impar, se obtiene el primer cubo...</div></li>
             }});
             
             updateExercices($( "#document-preview-exercices .exercices" ));
-            
+        
             
                     });
                     

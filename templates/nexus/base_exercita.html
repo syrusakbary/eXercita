@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+{% load media %}
+<html>
+    <head>
+        {% block head %}
+        <meta charset="utf-8">
+        <title>{% block title %}Exercita - {% endblock %}</title>
+        {% css "css/all.css" %}
+    <!--[if IE 8]>{% css "css/ie.css" %}<![endif]-->
+        {% endblock %}
+    </head>
+<body>
+
+   <!--  <div class="wrapper">  -->
+	<div id="header">
+	   <div class="container_16 wrapper"> 
+    	<a href="/" id="logo" title="Página principal de Exercita"> 
+      		<img width="148" height="42" src="{% media_url "/images/logo.png" %}" alt="Exercita Logo"> 
+		</a>
+		{% block navbar %}
+		<ul id="navbar">
+			<li><a href="{% url documents-explore %}" class="selected">Documentos</a></li>
+			<li><a href="{% url exercices-explore %}">Ejercicios</a></li>
+		</ul>
+		{% endblock %}
+		<div class="clear"></div>
+		</div>
+	</div>
+	<div id="content" class="{% block content_class %}{% endblock %}">
+	   {% block container %}{% endblock %}
+	</div>
+	{% if messages %}
+        <ul class="messagelist">{% for message in messages %}<li>{{ message }}</li>{% endfor %}</ul>
+    {% endif %}
+    <div class="clear"></div>
+    </div>
+    <div id="footer">
+    <div class="hr"></div>
+        {% block footer %}
+        {% endblock %}
+        
+   </div>
+   {% block scripts %}
+   <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+    {% endblock %}
+</body>

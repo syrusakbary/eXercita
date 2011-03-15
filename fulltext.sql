@@ -1,0 +1,1 @@
+ALTER TABLE documents_exercise ADD FULLTEXT `content` (`path`,`title`,`description`)

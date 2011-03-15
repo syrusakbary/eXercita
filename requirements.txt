@@ -1,6 +1,8 @@
-Django==1.2.3
+Django==1.2.5
 Jinja2==2.5.5
--e git+https://github.com/dcramer/coffin.git/#egg=coffin
+#-e git+https://github.com/dcramer/coffin.git/#egg=coffin
 boto
 -e git+https://github.com/sunlightlabs/django-mediasync.git/#egg=mediasync
--e git+https://github.com/SyrusAkbary/jinja2-mediasync.git/#egg=jinja2-mediasync
+#-e git+https://github.com/SyrusAkbary/jinja2-mediasync.git/#egg=jinja2-mediasync
+django-piston
+django-picklefield

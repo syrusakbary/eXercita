@@ -4,3 +4,5 @@ static/sketches/*
 prueba.py
 apache/*
 static/admin/*
+chardet/*
+.DS_STORE

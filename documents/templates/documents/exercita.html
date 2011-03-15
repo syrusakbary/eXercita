@@ -1,0 +1,32 @@
+{% macro classes(names) -%}{% for field in names %}{% set field = data[field] %}{% if field != "" and field %}{{field}}{% endif %}{% endfor %}{%- endmacro %}{% macro def(name,d) -%}{% if data[d] %}\exercita{defs}{ {{name}}={{data[d]}} }{% endif %}{%- endmacro %}{% macro param(name,d) -%}{% if data[d] %}\exercita{defs}{ {{name}} }{% endif %}{%- endmacro %}{% macro load(exercise) -%}\exercita{load}{{exercise.path}}{ {{','.join(exercise.checked)}} }{%- endmacro %}
+\documentclass[{{classes(['type','heading','heading_symmetry','numeration'])}}]{uniexer}
+\usepackage{a4wide}
+\usepackage[utf8]{inputenc}
+\usepackage[spanish]{babel}
+\usepackage{graphicx}
+\usepackage{pst-all}
+\usepackage{amssymb}
+\usepackage{url}
+{{def('doc-number','doc_number')}}
+{{def('doc-title','doc_title')}}
+{{def('doc-epilog','doc_epilog')}}
+{{def('doc-part-style','doc_part_style')}}
+{{def('doc-example-style','doc_example_style')}}
+{{def('doc-hint-style','doc_hint_style')}}
+{{def('doc-bibliography-style','doc_bibliography_style')}}
+{{def('doc-history-style','doc_history_style')}}
+
+{{param('date','date')}}
+{{param('academic_year','academic_year')}}
+{{param('subject','subject')}}
+{{param('semester','semester')}}
+{{param('group','group')}}
+{{param('degree','degree')}}
+{{param('institution','institution')}}
+
+\begin{document}
+{% for exercise in exercises %}
+{{load(exercise)}}
+{% endfor %}
+\bibliographystyle{alpha}
+\end{document}

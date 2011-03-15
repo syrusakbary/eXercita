@@ -14,7 +14,7 @@ MANAGERS = ADMINS
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
+        'ENGINE': 'django.db.backends.mysql', # Add 'postgresql_psycopg2', 'postgresql', 'mysql', 'sqlite3' or 'oracle'.
         'NAME': 'exercita',                      # Or path to database file if using sqlite3.
         'USER': 'root',                      # Not used with sqlite3.
         'PASSWORD': '',                  # Not used with sqlite3.
@@ -53,9 +53,9 @@ MEDIA_ROOT = ''
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).
 # Examples: "http://media.lawrence.com/media/", "http://example.com/media/"
-#MEDIA_URL = 'http://static.exercita.local/media/'
+MEDIA_URL = 'http://static.exercita.local/media/'
 
-MEDIA_URL = '/static/media/'
+#MEDIA_URL = '/static/media/'
 
 # Absolute path to the directory that holds static files.
 # Example: "/home/media/media.lawrence.com/static/"
@@ -70,6 +70,7 @@ STATIC_URL = '/static/'
 # Examples: "http://foo.com/static/admin/", "/static/admin/".
 ADMIN_MEDIA_PREFIX = '/static/admin/'
 
+#NEXUS_MEDIA_PREFIX = '/admin/media/'
 #ADMIN_MEDIA_PREFIX = 'http://static.exercita.local/admin/'
 # A list of locations of additional static files
 STATICFILES_DIRS = (os.path.join(ROOT_PATH,'/static/'))
@@ -87,15 +88,17 @@ SECRET_KEY = 'qdz5wj39hb-)tdxfg%cg1r_4c%*^!a559k1mx6de-=#vj^97cu'
 
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
+    'djinja.template.loaders.Loader',
     'django.template.loaders.filesystem.Loader',
     'django.template.loaders.app_directories.Loader',
+    #'django.template.loaders.app_directories.load_template_source',
 #     'django.template.loaders.eggs.Loader',
 )
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'django.middleware.csrf.CsrfViewMiddleware',
+    #'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
 )
@@ -111,12 +114,13 @@ TEMPLATE_DIRS = (
 )
 
 INSTALLED_APPS = (
-    'documents',
-    'jinja2',
-    'coffin',
+    #'jinja2',
+    #'coffin',
+    'exercita',
     'mediasync',
-    
-    'coffin.contrib.markup',
+    'nexus',
+    'documents',
+    #'coffin.contrib.markup',
     
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -167,4 +171,8 @@ MEDIASYNC = {
 
 JINJA2_ENVIRONMENT_OPTIONS = {
     'autoescape': False,
+}
+EXERCITA = {
+    'PATH': '/Users/syrus/Proyectos/exercita/exercita-db',
+    'BIN' : ''
 }

@@ -1,0 +1,6 @@
+ {% for field in names %}
+    
+       <div><label for="id_{{ form[field].name }}" class="grid_5 main">{{form[field].label}}:</label>{#{{form[field].label_tag(attrs={'class':" grid_5 main"})}}#}<div class="grid_11">{{ form[field] }}{% if form[field].help_text %}<span class="help">{{ form[field].help_text }}</span>{% endif %}</div>
+       <div class="clear"></div>
+       </div>
+{% endfor %}

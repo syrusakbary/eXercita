@@ -1,0 +1,25 @@
+{% load nexus_helpers %}
+        {% if category_link_set %}
+            <ul id="navbar">
+                {% for category in category_link_set %}
+                    {% if category.label and category.links|length > 1 %}
+                        <li{% if category.active %} class="selected"{% endif %}>
+                            <span>{{ category.label }}</span>
+                            <ul>
+                                {% for title, link, active in category.links %}
+                                    <li{% if active %} class="selected"{% endif %}>
+                                        <a href="{{ link }}">{{ title }}</a>
+                                    </li>
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% else %}
+                        {% for title, link, active in category.links %}
+                            <li>
+                                <a href="{{ link }}"{% if active %} class="selected"{% endif %}>{{ title }}</a>
+                            </li>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </ul>
+        {% endif %}
