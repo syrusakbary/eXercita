@@ -1,0 +1,34 @@
+- extends "base.haml"
+- block title
+    =super()
+    Ejercicios
+- block container
+    #exercises.container_16
+        %h1.grid_16 Ejercicios
+        %ol.exercise_list.grid_12
+            - for exercise in object_list
+                %li.e
+                    %h3= exercise.title|default("Sin título")
+                    .s
+                        - if exercise.description|length<=255
+                            = exercise.description|forceescape
+                        -else
+                            - set less = exercise.description|truncate(end='')|forceescape
+                            = less
+                            %span.contract
+                                [...]
+                                %a ver más
+                            %span.expand
+                                = exercise.description[(less|length):]|forceescape
+                                %a ver menos
+                    .path
+                        = exercise.path
+        .grid_4
+            %form
+                %input.search{'type':'text'}
+- block scripts
+    = super()
+    :javascript
+        $('.exercise_list a').live('click',function() {
+            $(this).parent().parent().toggleClass('expanded');
+        });

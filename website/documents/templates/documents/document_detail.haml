@@ -1,0 +1,39 @@
+- extends "base.haml"
+- set title="Documento de Prueba"
+- block container
+    .container_16
+        - if object.state == 'OK'
+            %h1#document-title.grid_10= object.title|capitalize
+            .clear
+            #document-details
+                #document-preview.grid_10
+                    .shadow.left
+                    .shadow.lright
+                    #document-nav
+                    #document-slideshow
+                        - for ir in range(object.pages)
+                            %img{'src':'{{ url("document_thumb",pk=object.pk,size="big",i=ir+1)}}'}
+                        -#%img{'src':'{{ media_url("/documents/2-full.png")}}'}
+                    %i.author= object.author
+                #document-info.grid_6
+                    %p= object.description
+                    %a.button-big{'href':''}
+                        %span
+                            %span.icon.download
+                            %b.title Descarga el documento
+                            %span.subtitle Formato PDF
+        - else
+            - if object.state == 'PR'
+                %h1 Procesando documento
+                %span
+                    Si lo desea puede descargar el archivo latex haciendo click
+                    %a.download{"href":'{{ url("document_latex",pk=object.id)}}'} aquí 
+            - else
+                %h1 Ha habido un error
+- block scripts
+    = super()
+    = js("scripts/joined.js")
+    :javascript
+        $('#document-slideshow').cycle({
+            pager:  '#document-nav',timeout:8000,speed:800}
+        );

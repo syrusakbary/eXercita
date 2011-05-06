@@ -1,7 +1,10 @@
 *.pyc
+exercita.esproj
+prueba/*
 lib/*
 static/sketches/*
 prueba.py
 apache/*
 static/admin/*
+website/local_settings.py
 .DS_STORE

@@ -1,0 +1,40 @@
+.exercise_list { padding: 0 0 10px 0 }
+.exercise_list .e { padding: 10px 0 }
+.exercise_list h3 {
+    margin: 0 10px 3px 0;
+    padding: 0;
+    color: #323232;
+    float: left;
+}
+.exercise_list .s {
+    clear: both;
+    font-size: 13px;
+    color: #555;
+}
+.exercise_list .e .add { display: none }
+.exercise_list .e:hover .add { display: inline-block }
+.exercise_list .e .path {
+    color: #222;
+    margin-top: 5px;
+}
+.exercise_list .expand,
+.exercise_list .expanded .contract {
+    display: none;
+}
+.exercise_list .contract,
+.exercise_list .expanded .expand {
+    display: inline;
+}
+.exercise_list .contract a,
+.exercise_list .expanded a {
+    color: #444;
+    text-decoration: underline;
+    cursor: default;
+}
+#exercises form .search{
+    background: white;
+    padding: 8px;
+    border: 1px solid #CCC;
+    width:204px;
+    font-size: 14px;
+}

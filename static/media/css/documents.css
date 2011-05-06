@@ -1,0 +1,23 @@
+#documents li .preview .options a {
+    display: inline-block;
+    height: 48px;
+    width: 48px;
+    text-indent: -10000px;
+    background: url('../images/options.png') no-repeat;
+    margin: 0 6px;
+}
+a.document_new {
+    text-align: right;
+    color: #666;
+}
+#documents li .preview img {
+    background: white;
+    border: none;
+}
+#documents li .preview .options a:active {
+    position: relative;
+    top: 1px;
+}
+#documents li .preview .options a.view { background-position: 0 0 }
+#documents li .preview .options a.download { background-position: -48px 0 }
+#documents li .preview .options a.edit { background-position: -96px 0 }
