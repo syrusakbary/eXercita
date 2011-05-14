@@ -169,7 +169,7 @@
             }
     
             runningRequest=true;
-            request = $.getJSON("http://exercita.local/ejercicios.json",{
+            request = $.getJSON("{{url('exercises_list_json')}}",{
                 q:$q.val()+String.fromCharCode(code)
             },function(data){     
             //alert(data.results);

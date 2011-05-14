@@ -27,7 +27,7 @@ urlpatterns = patterns('',
     (r'^ejercicios/', include('exercises.urls')),
     #url(r'^documents/$', 'documents.views.explore',name="documents-explore"),
     #url(r'^ejercicios/$', 'documents.views.explore',name="exercices-explore"),
-    url(r'^ejercicios.json$', exercises_resource), 
+    url(r'^ejercicios.json$', exercises_resource,name='exercises_list_json'), 
     # (r'^exercita/', include('exercita.foo.urls')),s
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
