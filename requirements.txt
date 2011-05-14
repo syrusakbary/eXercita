@@ -10,4 +10,6 @@ django-piston
 django-social-auth
 django-picklefield
 
+https://github.com/jessemiller/HamlPy/tarball/master
+
 PIL
