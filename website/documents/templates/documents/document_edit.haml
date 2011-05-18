@@ -69,7 +69,7 @@
 
 - block scripts
     = super()
-    = js("scripts/joined.js")
+    - include_media "scripts/joined.js"
     %script{'type':"text/javascript",'src':"http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"}
     :javascript
         function setEditSection (hash) {

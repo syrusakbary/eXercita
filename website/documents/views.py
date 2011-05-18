@@ -5,7 +5,7 @@ from django.http import HttpResponse
 from django.shortcuts import render_to_response
 from django.template import add_to_builtins
 from documents.models import *
-add_to_builtins('mediasync.templatetags.media')
+#add_to_builtins('mediasync.templatetags.media')
 #add_to_builtins('exercita.documents.templatetags.documents_tags')
 
 from documents.forms import DocumentForm

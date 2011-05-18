@@ -32,7 +32,7 @@
                 %h1 Ha habido un error
 - block scripts
     = super()
-    = js("scripts/joined.js")
+    - include_media "scripts/joined.js"
     :javascript
         $('#document-slideshow').cycle({
             pager:  '#document-nav',timeout:8000,speed:800}

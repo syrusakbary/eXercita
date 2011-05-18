@@ -1,0 +1,24 @@
+apt-get intall python-pip
+
+pip install virtualenv
+virtualenv env
+source env/bin/activate
+
+pip install -r requirements.txt
+
+
+apt-get install python-setuptools python-pip python-dev build-essential
+pip install mysql-python 
+
+MySQL
+
+create database exercita;
+grant all on exercita.* to exercita@localhost;
+
+
+
+
+python manage.py syncdb
+
+apt-get install libapache2-mod-wsgi
+a2enmod wsgi
