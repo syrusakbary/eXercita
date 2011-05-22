@@ -1,4 +1,7 @@
-{% macro classes(names) -%}{% for field in names %}{% set field = data[field] %}{% if field != "" and field %}{{field}}{% endif %}{% endfor %}{%- endmacro %}{% macro def(name,d) -%}{% if data[d] %}\exercita{defs}{ {{name}}={{data[d]}} }{% endif %}{%- endmacro %}{% macro param(name,d) -%}{% if data[d] %}\exercita{defs}{ {{name}} }{% endif %}{%- endmacro %}{% macro load(exercise) -%}\exercita{load}{{exercise.path}}{ {{','.join(exercise.checked)}} }{%- endmacro %}
+{%- macro classes(names) -%}
+{% for field in names %}{% if data[field]!=True %}{% set field = data[field] %}{% endif %}{% if field != "" and field %}{{ ',' if not loop.first }}{{field}}{% endif %}{% endfor %}
+{%- endmacro -%}
+{% macro def(name,d) -%}{%if (d in ["doc_title","doc_number","academic_year","date","degree","institution"]) %}{% set f,l="{","}" %}{% endif %}{% if data[d] %}\exercita{defs}{ {{name}}={{f}}{{data[d]}}{{l}} }{% endif %}{%- endmacro %}{% macro param(name,d) -%}{% if data[d] %}\exercita{defs}{ {{name}} }{% endif %}{%- endmacro %}{% macro load(exercise) -%}\exercita{load}{ {{exercise.path}} }{ {{','.join(exercise.checked)}} }{%- endmacro -%}
 \documentclass[{{classes(['type','heading','heading_symmetry','numeration'])}}]{uniexer}
 \usepackage{a4wide}
 \usepackage[utf8]{inputenc}
@@ -16,13 +19,13 @@
 {{def('doc-bibliography-style','doc_bibliography_style')}}
 {{def('doc-history-style','doc_history_style')}}
 
-{{param('date','date')}}
-{{param('academic_year','academic_year')}}
-{{param('subject','subject')}}
-{{param('semester','semester')}}
-{{param('group','group')}}
-{{param('degree','degree')}}
-{{param('institution','institution')}}
+{{def('academic-year','academic_year')}}
+{{def('date','date')}}
+{{def('subject','subject')}}
+{{def('semester','semester')}}
+{{def('group','group')}}
+{{def('degree','degree')}}
+{{def('institution','institution')}}
 
 \begin{document}
 {% for exercise in exercises %}

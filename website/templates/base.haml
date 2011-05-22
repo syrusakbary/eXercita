@@ -28,7 +28,7 @@
                             %a{'href':'{{url("django.contrib.auth.views.login")}}'}= _('Log in')
                 #navbar.grid_12
                     %li
-                        %a{'href':'{{ url("document_list") }}','class':'{{"active" if active("document_list","document_detail","document_edit")}}'} Documentos
+                        %a{'href':'{{ url("document_list") }}','class':'{{"active" if active("document_list","document_detail","document_create","document_edit")}}'} Documentos
                         %a{'href':'{{ url("exercise_list") }}','class':'{{"active" if active("exercise_list")}}'} Ejercicios
             .clear
     #content{'class':'{{content_class}}'}

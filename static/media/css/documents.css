@@ -21,3 +21,7 @@ a.document_new {
 #documents li .preview .options a.view { background-position: 0 0 }
 #documents li .preview .options a.download { background-position: -48px 0 }
 #documents li .preview .options a.edit { background-position: -96px 0 }
+
+#edit-exercices .loader {
+    display: none;
+}
