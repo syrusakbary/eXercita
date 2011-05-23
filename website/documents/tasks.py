@@ -9,32 +9,48 @@ class CreateRelated(threading.Thread):
         threading.Thread.__init__(self)
 
     def run (self):
-        base = self.instance.base()
+        self.base = self.instance.base()
         try:
-            os.makedirs(base)
+            os.makedirs(self.base)
+            os.chmod(self.base,0o777)
         except OSError:
             pass
         #self.instance.pk,
-        self.make_latex()
-        self.make_dvi()
-        self.make_images()
-        self.instance.save(create_related=False)
+        import traceback
+        import StringIO
+        try:
+            self.instance.data['traceback'] = ''
+            self.make_latex()
+            self.make_dvi()
+            self.make_images()
+            self.instance.state = 'OK'
+        except Exception as e:
+            self.instance.state = 'ER'
+            self.instance.data['error'] = e
+            s=StringIO.StringIO()
+            traceback.print_exc(file=s)
+            s.seek(0)
+            self.instance.data['traceback'] = s.read()
+        finally:
+            self.instance.save(create_related=False)
 
     def make_latex(self):
-        latex = open ( self.instance.file('document.x'), 'w' )
-        latex.write (self.instance.latex() )
+        import codecs
+        latex = codecs.open ( self.instance.file('document.tex'), encoding='utf-8', mode='w' )
+        latex.write (unicode(self.instance.latex()) )
         latex.close() 
 
 
     def make_dvi(self):
         pass
-        #s = Popen(['latex', 'document.x'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
+        #s = Popen(['latex', 'document.tex'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
     def make_pdf(self):
         pass
         #s = Popen(['dvipdfm', 'document.dvi','-o','document.pdf'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
 
     def make_images(self):
-        s = Popen(['dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
+        #/opt/local/bin/dvipng
+        s = Popen(['dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
         pattern = re.compile("\[(\d+)\]")
         images = pattern.findall(s)
         pages = len(images)

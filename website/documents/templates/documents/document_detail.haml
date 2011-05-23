@@ -24,12 +24,16 @@
                             %span.subtitle Formato PDF
         - else
             - if object.state == 'PR'
-                %h1 Procesando documento
+                %h1= object.title
+                %h2 Procesando documento
                 %span
                     Si lo desea puede descargar el archivo latex haciendo click
                     %a.download{"href":'{{ url("document_latex",pk=object.id)}}'} aquí 
             - else
-                %h1 Ha habido un error
+                %h1= object.title
+                %h2 Error al procesar el documento
+                -#.error= object.data['error']
+                .traceback= object.data['traceback']|linebreaks
 - block scripts
     = super()
     - include_media "scripts/joined.js"

@@ -213,7 +213,7 @@ JINJA2_ENVIRONMENT_OPTIONS = {
 }
 EXERCITA = {
     'DATABASE': '/Users/syrus/Proyectos/exercita/exercita-db',
-    'DOCUMENTS': os.path.join(ROOT_PATH,'static/documents/'),
+    'DOCUMENTS': os.path.join(ROOT_PATH,'../static/documents/'),
     'BIN' : 'latex %s'
 }
 

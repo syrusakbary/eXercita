@@ -7,6 +7,12 @@ TYPE_CHOICES = (
     ('exam','Examen'),
 )
 
+SOLUTION_CHOICES = (
+    ('','Por defecto'),
+    ('solutions','Mostrar únicamente soluciones'),
+    ('withsolutions','Mostrar únicamente encunciados y soluciones'),
+)
+
 SYMETRY_CHOICES = (
     ('symmetric','Simétrica'),
     ('asymmetric','Asimétrica'),
@@ -62,17 +68,18 @@ class DocumentForm(forms.Form):
 
     title = forms.CharField(max_length=50,label='Nombre')
     description = forms.CharField(widget=forms.Textarea,label='Descripción')
-    public = forms.BooleanField(required=False,label='Público',help_text='Marca la casilla si quieres que este documento sea público')
+    #public = forms.BooleanField(required=False,label='Público',help_text='Marca la casilla si quieres que este documento sea público')
     
     #properties
     type = forms.CharField(widget=forms.RadioSelect(choices=TYPE_CHOICES),label='Tipo')
     heading = forms.BooleanField(required=False,label='Cabecera',help_text='Si esta marcado se añadira automáticamente una cabecera con todo el contenido relevante.')
     heading_symmetry = forms.CharField(widget=forms.RadioSelect(choices=SYMETRY_CHOICES),label='Simetría de la cabecera',required=False )
+    solution = forms.CharField(widget=forms.RadioSelect(choices=SOLUTION_CHOICES),label='Soluciones',required=False)
     numeration = forms.CharField(widget=forms.RadioSelect(choices=NUMERATION_CHOICES),label='Numeración',help_text = 'Indica la forma de enumerar los ejericicios',required=False)
-    
+   
     #style
     doc_number = forms.CharField(label='Número de Documento',help_text='La definición general del documento, es el numero de hoja (1,2,etc.) o el cariz del examen (parcial de febrero)',required=False)
-    doc_part_number = forms.CharField(label='Número de Apartado',required=False)
+    #doc_part_number = forms.CharField(label='Número de Apartado',required=False)
     doc_title = forms.CharField(max_length=50,label='Título',help_text='Para indicar el título de la hoja. Por ejemplo, Condicionales, Memoria dinámica, Orden superior, etc.')
     doc_epilog = forms.CharField(widget=forms.Textarea,label='Epilogo',required=False)
     doc_part_style = forms.CharField(widget=forms.Select(choices=DOC_PART_STYLE_CHOICES),label='Apartados',help_text='Indica el formato en el que apareceran los apartados.',required=False)

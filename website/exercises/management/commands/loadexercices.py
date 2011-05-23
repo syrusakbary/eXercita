@@ -1,7 +1,7 @@
 from django.core.management.base import BaseCommand, CommandError
 from optparse import OptionParser, make_option
-from documents.models import Exercise
-from documents.exercita import *
+from exercises.models import Exercise
+from exercises.exercita import *
 import os
 
 class Command(BaseCommand):

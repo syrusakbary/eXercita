@@ -214,7 +214,7 @@ input[type=submit] { font-size: 18px }
 }
 #edit-content input[type=text],
 #edit-content textarea {
-    padding: 4px;
+    padding: 5px;
     width: 300px;
 }
 #edit-content p ul li label { }

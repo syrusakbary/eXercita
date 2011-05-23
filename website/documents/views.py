@@ -86,7 +86,7 @@ def edit(request,pk=False):
             doc.data = form.cleaned_data
             doc.title = form.cleaned_data['title']
             doc.description = form.cleaned_data['description']
-            doc.public = form.cleaned_data['public']
+            #doc.public = form.cleaned_data['public']
             doc.author = request.user
             doc.save()
             
@@ -95,7 +95,7 @@ def edit(request,pk=False):
             # ...
             #return HttpResponse(sections)
             #return HttpResponse(simplejson.dumps(form.cleaned_data))
-            
+        #doc.data = form.cleaned_data
         exercises = simplejson.dumps(doc.exercises())
     elif not(pk):
         exercises = False

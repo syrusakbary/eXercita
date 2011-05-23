@@ -62,9 +62,10 @@ class Document(models.Model):
 
 
     def save (self,create_related=True):
-        self.state = 'PR'
-        super(Document, self).save()
         if create_related:
-            from tasks import CreateRelated
+            self.state = 'PR'
+            from documents.tasks import CreateRelated
             thread = CreateRelated(self)
+            thread.setDaemon(True)
             thread.start()
+        super(Document, self).save()

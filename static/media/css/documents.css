@@ -25,3 +25,6 @@ a.document_new {
 #edit-exercices .loader {
     display: none;
 }
+#edit-exercices .exercise_list {
+    margin-top:20px;
+}

@@ -1,16 +1,16 @@
 # coding: utf-8
-from documents.models import Exercise
+from exercises.models import Exercise
 from settings import EXERCITA
 import os
 import re
 
 def relative_path (path):
-    if not(path.startswith(EXERCITA['PATH'])):
+    if not(path.startswith(EXERCITA['DATABASE'])):
         return False
-    return path[len(EXERCITA['PATH'])+1:-2].replace('/','.')
+    return path[len(EXERCITA['DATABASE'])+1:-2].replace('/','.')
     
 def real_path (path):
-    return os.path.join(EXERCITA['PATH'], path.replace('.','/')+'.x')
+    return os.path.join(EXERCITA['DATABASE'], path.replace('.','/')+'.x')
 
 latexAccents = [
   [ u"à", "\\`a" ], # Grave accent
@@ -188,13 +188,15 @@ def get_or_create(path,update=False):
     #description = description.decode('utf-8')
     #print title
     #print description[:100]
-    exercise, created = Exercise.objects.get_or_create(path=rel,defaults={"title":title,"content":content,"description":description})
-    if not(created) and update:
-        exercise.title = title
-        exercise.content = content
-        exercise.description = description
-        exercise.save()
-    
+    try:
+        exercise, created = Exercise.objects.get_or_create(path=rel,defaults={"title":title,"content":content,"description":description})
+        if not(created) and update:
+            exercise.title = title
+            exercise.content = content
+            exercise.description = description
+            exercise.save()
+    except:
+        pass    
 #r = real_path('talf.turing.quehace')
 #r = real_path('programacion.codificacion.codigosLineales')
 #r = '/Users/syrus/Proyectos/exercita/exercita-db/matematicas/discreta/combinatoria/cadenas/palindromos.x'

@@ -30,7 +30,7 @@
             %a{'href':'#style'}
                 %span.wrapper
                     %span.icon.style
-                    Datos básicos
+                    Formato
         %li
             %a{'href':'#params'}
                 %span.wrapper
@@ -45,10 +45,10 @@
     %form#document-form{'action':'','method':'post'}
         - csrf_token
         #edit-content.container_16
-            #edit-basic.inner= draw_fields(['title','description','public'])
-            #edit-properties.inner= draw_fields(['type','heading','heading_symmetry','numeration'])
-            #edit-style.inner= draw_fields(['doc_number','doc_part_number','doc_title','doc_epilog','doc_part_style','doc_example_style','doc_hint_style','doc_bibliography_style','doc_history_style'])
-            #edit-params.inner= draw_fields(['date','academic_year','subject','semester','group','degree','institution'])
+            #edit-basic.inner= draw_fields(['title','description'])
+            #edit-properties.inner= draw_fields(['type','heading','heading_symmetry','solution','numeration'])
+            #edit-style.inner= draw_fields(['doc_part_style','doc_example_style','doc_hint_style','doc_bibliography_style','doc_history_style'])
+            #edit-params.inner= draw_fields(['doc_number','doc_title','doc_epilog','date','academic_year','subject','semester','group','degree','institution'])
             #edit-exercices.inner
                 .grid_5
                     #document-preview-exercices
@@ -60,13 +60,13 @@
                         = form['exercises'].errors
                 
                     .help Puedes arrastrar los ejercicios para posicionarlos
-                .grid_9
+                .grid_11
                     %input#instant-exercices.defaultText{'type':'text','name':'search','title':'Filtrar...','autocomplete':'off'}
                     %img.loader{'src':'{{media_url("images/loader.gif")}}'}
                     %ol.exercise_list
             .clear
         #edit-footer.container_16
-            .prefix_5.grid_5
+            .prefix_5.grid_11
                 %input{'type':'submit','value':'Guardar'}
 
 
@@ -149,7 +149,7 @@
             //console.log(data);
             exercises.empty();
             $.each(data.exercises,function(index,exercise){
-                elem = $('<li class="e" id="exercise-'+exercise.id+'"><span class="tl"><h3>'+exercise.title+'</h3><a class="button-small add"><span>+</span></a></span><div class="s">'+exercise.description+'</div></li>');
+                elem = $('<li class="e" id="exercise-'+exercise.id+'"><h3>'+exercise.title+'</h3><a class="button-small add"><span>+</span></a><div class="s">'+exercise.description+'</div><div class="path">'+exercise.path+'</div></li>');
                 elem.find('.add').click(function(e) {
                     
                     add(exercise);
@@ -162,15 +162,8 @@
         var request;
         var loader = $('#edit-exercices .loader');
        //Identify the typing action
-        $('input#instant-exercices').keydown(function(e){
-            //e.preventDefault();
-            //if ($(this).val().length < 3) return;
-            var $q = $(this);
-            code = e.keyCode ? e.keyCode : e.which;
-            if($q.val() == ''){
-                exercises.html('');
-                //return false;
-            }
+        $('input#instant-exercices').keyup(function(e){
+            
             loader.show();
             //Abort opened requests to speed it up
             if(runningRequest){
@@ -179,7 +172,7 @@
     
             runningRequest=true;
             request = $.getJSON("{{url('exercises_list_json')}}",{
-                q:$q.val()+String.fromCharCode(code)
+                q:$(this).val()
             },function(data){
                 loader.hide();     
             //alert(data.results);
