@@ -4,7 +4,9 @@ from django.http import HttpResponse
 #from coffin.template import add_to_builtins
 from django.shortcuts import render_to_response
 from django.template import add_to_builtins
+from exercises.models import *
 from documents.models import *
+
 #add_to_builtins('mediasync.templatetags.media')
 #add_to_builtins('exercita.documents.templatetags.documents_tags')
 

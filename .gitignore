@@ -10,3 +10,5 @@ website/local_settings.py
 .DS_STORE
 _generated_media*.py
 _generated_media/*
+exercita.komodoproject
+static/documents/*

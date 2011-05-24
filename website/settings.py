@@ -222,5 +222,5 @@ EXERCITA = {
 
 try:
     from local_settings import *
-except e:
+except Exception:
     pass

@@ -50,7 +50,7 @@ class CreateRelated(threading.Thread):
 
     def make_images(self):
         #/opt/local/bin/dvipng
-        s = Popen(['dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['/opt/local/bin/dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
         pattern = re.compile("\[(\d+)\]")
         images = pattern.findall(s)
         pages = len(images)
@@ -68,8 +68,14 @@ class CreateRelated(threading.Thread):
             image = Image.open(self.instance.file('preview_%s.png'%images[p]))
             for size in sizes:
                 im = image.copy()
-                im.thumbnail(size, Image.ANTIALIAS)
-                background = Image.new('RGBA', size, (255, 255, 255, 0))
+                im = im.convert("RGB")
+                
+                basewidth = size[1]
+                wpercent = (basewidth/float(im.size[1]))
+                hsize = int((float(im.size[0])*float(wpercent)))
+                im = im.resize((hsize,basewidth),Image.ANTIALIAS)
+                
+                background = Image.new('RGB', size, (255, 255, 255))
                 background.paste(im, ((size[0] - im.size[0]) / 2, (size[1] - im.size[1]) / 2))
                 background.save(self.instance.image(p+1,size), 'PNG')
         
