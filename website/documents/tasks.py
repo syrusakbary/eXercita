@@ -37,13 +37,13 @@ class CreateRelated(threading.Thread):
 
     def make_latex(self):
         import codecs
-        latex = codecs.open ( self.instance.file('document.tex'), encoding='utf-8', mode='w' )
+        latex = codecs.open ( self.instance.file('document.tex'), encoding='utf-8', mode='w+' )
         latex.write (unicode(self.instance.latex()) )
         latex.close() 
 
 
     def make_dvi(self):
-        s = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['TEXINPUTS=:/usr/share/exercita//:/usr/share/exercita-db/:$TEXINPUTS','latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
     def make_pdf(self):
         #pass
         #,'-o','document.pdf'
