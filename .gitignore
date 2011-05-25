@@ -11,7 +11,7 @@ website/local_settings.py
 _generated_media*.py
 _generated_media/*
 exercita.komodoproject
-static/documents/*
+static/documents*
 /.komodotools/
 /.settings/
 /nbproject/*
