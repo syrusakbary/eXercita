@@ -48,8 +48,7 @@ class CreateRelated(threading.Thread):
         #":/usr/share/exercita//:/usr/share/exercita-db/"
         #":/usr/share/exercita//:/usr/share/exercita-db/"
         output = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE,env={"TEXINPUTS":':'.join(texinputs) }).communicate()[0]
-        
-        pattern = re.compile("Output written on document.dvi \((\d) pages")
+        pattern = re.compile("Output written on document.dvi \((\d) page")
         match = pattern.search(output)
         if match:
             self.instance.pages = int(match.group(1))
