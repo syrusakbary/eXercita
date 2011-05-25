@@ -14,6 +14,6 @@
                         %span.fold &nbsp;
                         .options
                             %a.view{"href":'{{ url("document_detail",pk=document.id)}}'} Vista Previa
-                            %a.download{"href":'{{ url("document_download",pk=document.id)}}'} Descargar
+                            %a.download{"href":'{{ url("document_download",pk=document.id,format="pdf")}}'} Descargar
                             %a.edit{"href":'{{ url("document_edit",pk=document.id)}}'} Editar
                     %b= document.title
