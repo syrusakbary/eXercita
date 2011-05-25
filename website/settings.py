@@ -212,9 +212,10 @@ JINJA2_ENVIRONMENT_OPTIONS = {
     'autoescape': False,
 }
 EXERCITA = {
+    'PATH' : '/usr/share/exercita/',
     'DATABASE': '/Users/syrus/Proyectos/exercita/exercita-db',
     'DOCUMENTS': os.path.join(ROOT_PATH,'../static/documents/'),
-    'BIN' : 'latex %s'
+    'TEXINPUTS':[],
 }
 SENDFILE_BACKEND = 'sendfile.backends.simple'
 SENDFILE_ROOT =  os.path.join(ROOT_PATH,'../')

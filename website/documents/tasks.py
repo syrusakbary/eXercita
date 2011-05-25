@@ -2,6 +2,7 @@ import threading
 import os
 import re
 from subprocess import call, PIPE, Popen
+from django.conf import settings
 
 class CreateRelated(threading.Thread):
     def __init__(self, instance):
@@ -43,7 +44,9 @@ class CreateRelated(threading.Thread):
 
 
     def make_dvi(self):
-        s = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE,env={"TEXINPUTS": ":/usr/share/exercita//:/usr/share/exercita-db/"}).communicate()[0]
+        texinputs = ['',settings.EXERCITA['PATH'],settings.EXERCITA['DATABASE']]+settings.EXERCITA['TEXINPUTS']
+        #":/usr/share/exercita//:/usr/share/exercita-db/"
+        s = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE,env={"TEXINPUTS":':'.join(texinputs) }).communicate()[0]
     def make_pdf(self):
         #pass
         #,'-o','document.pdf'
