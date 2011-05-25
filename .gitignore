@@ -17,3 +17,4 @@ static/documents/*
 /nbproject/*
 exercita.komodoproject
 website/local_settings.py
+exercita.conf
