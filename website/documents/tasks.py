@@ -44,22 +44,29 @@ class CreateRelated(threading.Thread):
 
 
     def make_dvi(self):
-        texinputs = ['',settings.EXERCITA['PATH'],settings.EXERCITA['DATABASE']]+settings.EXERCITA['TEXINPUTS']
+        texinputs = ['',settings.EXERCITA['PATH']+'/',settings.EXERCITA['DATABASE']]+settings.EXERCITA['TEXINPUTS']
         #":/usr/share/exercita//:/usr/share/exercita-db/"
-        s = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE,env={"TEXINPUTS":':'.join(texinputs) }).communicate()[0]
+        #":/usr/share/exercita//:/usr/share/exercita-db/"
+        output = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE,env={"TEXINPUTS":':'.join(texinputs) }).communicate()[0]
+        
+        pattern = re.compile("Output written on document.dvi (\d pages")
+        match = pattern.search(output)
+        if match:
+            self.instance.pages = int(match.group(1))
+        else:
+            raise Exception('Error al compilar el documento - %s'%self.instance.file('document.log'))
     def make_pdf(self):
         #pass
         #,'-o','document.pdf'
         s = Popen(['dvipdfm', 'document.dvi'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
-
+        
     def make_images(self):
         #/opt/local/bin/dvipng
         s = Popen(['dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
-        pattern = re.compile("\[(\d+)\]")
-        images = pattern.findall(s)
-        pages = len(images)
-        self.instance.pages = pages
-        
+        #pattern = re.compile("\[(\d+)\]")
+        #images = pattern.findall(s)
+        #pages = len(images)
+        #self.instance.pages = pages
         try:
             from PIL import Image, ImageOps
         except ImportError:
@@ -68,8 +75,8 @@ class CreateRelated(threading.Thread):
             
         from documents.models import IMAGE_SIZE
         sizes = IMAGE_SIZE.values()
-        for p in range(pages):
-            image = Image.open(self.instance.file('preview_%s.png'%images[p]))
+        for i in range(1,self.instance.pages+1):
+            image = Image.open(self.instance.file('preview_%s.png'%i))
             for size in sizes:
                 im = image.copy()
                 im = im.convert("RGB")
@@ -81,5 +88,5 @@ class CreateRelated(threading.Thread):
                 
                 background = Image.new('RGB', size, (255, 255, 255))
                 background.paste(im, ((size[0] - im.size[0]) / 2, (size[1] - im.size[1]) / 2))
-                background.save(self.instance.image(p+1,size), 'PNG')
+                background.save(self.instance.image(i,size), 'PNG')
         
