@@ -37,7 +37,7 @@ class CreateRelated(threading.Thread):
 
     def make_latex(self):
         import codecs
-        latex = codecs.open ( self.instance.file('document.tex'), encoding='utf-8', mode='w+' )
+        latex = codecs.open ( self.instance.file('document.tex'), encoding='utf-8', mode='w' )
         latex.write (unicode(self.instance.latex()) )
         latex.close() 
 
