@@ -28,7 +28,7 @@
             %h2 Procesando documento
             %span
                 Si lo desea puede descargar el archivo latex haciendo click
-                %a.download{"href":'{{ url("document_download",pk=object.id,format="latex")}}'} aquí 
+                %a.download{"href":'{{ url("document_download",pk=object.id,format="latex")}}'} aquí
         - else
             %h1= object.title
             %h2 Error al procesar el documento
@@ -42,3 +42,15 @@
         $('#document-slideshow').cycle({
             pager:  '#document-nav',timeout:8000,speed:800}
         );
+    - if object.state == 'PR'
+        :javascript
+              check = function () {
+                $.getJSON("{{url('document_ready')}}",{
+                  id:{{object.id}}
+                },function(data){
+                  if (data['ready']) window.location = '{{ url("document_detail",pk=object.id)}}';
+                  setTimeout( check, 1000);
+                });
+                
+              }
+              check();

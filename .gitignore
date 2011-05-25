@@ -12,9 +12,9 @@ _generated_media*.py
 _generated_media/*
 exercita.komodoproject
 static/documents*
-/.komodotools/
-/.settings/
-/nbproject/*
+.komodotools/
+.settings/*
+nbproject/*
 exercita.komodoproject
-/website/local_settings.py
+website/local_settings.py
 exercita.conf
