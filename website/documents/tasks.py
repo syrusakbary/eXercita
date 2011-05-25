@@ -43,7 +43,7 @@ class CreateRelated(threading.Thread):
 
 
     def make_dvi(self):
-        s = Popen(['TEXINPUTS=:/usr/share/exercita//:/usr/share/exercita-db/:$TEXINPUTS','latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE,env={"TEXINPUTS": ":/usr/share/exercita//:/usr/share/exercita-db/"}).communicate()[0]
     def make_pdf(self):
         #pass
         #,'-o','document.pdf'
