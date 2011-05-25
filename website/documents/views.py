@@ -67,7 +67,9 @@ def thumb(request,pk,size,i):
     except ImportError:
         import Image
 #        import ImageOps
-    image =  os.path.join(EXERCITA['DOCUMENTS'],str(pk),'thumbnail_%s_%d_%d.png'%(i,580,816))
+    from documents.models import IMAGE_SIZE
+    size = IMAGE_SIZE[size]
+    image =  os.path.join(EXERCITA['DOCUMENTS'],str(pk),'thumbnail_%s_%d_%d.png'%(i,size[0],size[1]))
     img = Image.open(image)
     img.save(response, "PNG")
     return response
@@ -149,7 +151,7 @@ def download (request,pk,format):
     from sendfile import sendfile
     document = Document.objects.get(id=pk)
     file = document.path(format)
-    return sendfile(request, file, attachment=True, attachment_filename='document.tex')
+    return sendfile(request, file, attachment=True)
     #return HttpResponse('Descarga del documento')
     
 def find(request):
