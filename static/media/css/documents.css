@@ -28,3 +28,11 @@ a.document_new {
 #edit-exercices .exercise_list {
     margin-top:20px;
 }
+
+#document-details .ancillaryLink {
+	font-size:12px;
+	color:#666;
+	clear:both;
+	display:block;
+	padding:6px 10px;
+}

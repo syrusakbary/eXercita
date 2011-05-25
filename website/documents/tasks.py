@@ -22,6 +22,7 @@ class CreateRelated(threading.Thread):
             self.instance.data['traceback'] = ''
             self.make_latex()
             self.make_dvi()
+            self.make_pdf()
             self.make_images()
             self.instance.state = 'OK'
         except Exception as e:
@@ -42,11 +43,11 @@ class CreateRelated(threading.Thread):
 
 
     def make_dvi(self):
-        pass
-        #s = Popen(['latex', 'document.tex'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['latex', 'document.tex'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
     def make_pdf(self):
-        pass
-        #s = Popen(['dvipdfm', 'document.dvi','-o','document.pdf'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
+        #pass
+        #,'-o','document.pdf'
+        s = Popen(['dvipdfm', 'document.dvi'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
 
     def make_images(self):
         #/opt/local/bin/dvipng

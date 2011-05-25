@@ -9,9 +9,11 @@ IMAGE_SIZE = {
     'big': (580,816),
     'small': (220,308),
 }
-
+FILE_FORMATS = {'pdf':'%s.pdf',
+                'latex':'%s.tex'}
 import os
-from settings import EXERCITA
+from django.conf import settings
+EXERCITA = settings.EXERCITA
 class Document(models.Model):
     title = models.CharField(max_length=50)
     description = models.TextField()
@@ -27,8 +29,8 @@ class Document(models.Model):
             size = IMAGE_SIZE[size]
         return self.file('thumbnail_%s_%d_%d.png'%(i,size[0],size[1]))
         
-    def pdf (self):
-        return self.file('document.pdf')
+    def path (self,format):
+        return self.file(FILE_FORMATS[format]%'document')
     
     def base (self):
         return os.path.join(EXERCITA['DOCUMENTS'],str(self.pk))

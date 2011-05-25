@@ -1,7 +1,8 @@
 {%- macro classes(names) -%}
 {% for field in names %}{% if data[field]!=True %}{% set field = data[field] %}{% endif %}{% if field != "" and field %}{{ ',' if not loop.first }}{{field}}{% endif %}{% endfor %}
 {%- endmacro -%}
-{% macro def(name,d) -%}{%if (d in ["doc_title","doc_number","academic_year","date","degree","institution"]) %}{% set f,l="{","}" %}{% endif %}{% if data[d] %}\exercita{defs}{ {{name}}={{f}}{{data[d]}}{{l}} }{% endif %}{%- endmacro %}{% macro param(name,d) -%}{% if data[d] %}\exercita{defs}{ {{name}} }{% endif %}{%- endmacro %}{% macro load(exercise) -%}\exercita{load}{ {{exercise.path}} }{ {{','.join(exercise.checked)}} }{%- endmacro -%}
+{%- macro def(name,d) -%}{%if (d in ["doc_title","doc_number","doc_epilog","academic_year","date","subject","degree","institution"]) %}{% set f,l="{","}" %}{% endif %}{% if data[d] %}\exercita{defs}{{'{'}}{{name}}={{f}}{{data[d]}}{{l}}{{'}'}}{% endif %}{%- endmacro %}{% macro param(name,d) -%}{% if data[d] %}\exercita{defs}{{'{'}}{{name}}{{'}'}}{% endif %}{%- endmacro %}
+{%- macro load(exercise) -%}\exercita{load}{{'{'}}{{exercise.path}}{{'}'}}{% if exercise.checke|length > 0 %}[{{','.join(exercise.checked)}}]{% endif %}{%- endmacro -%}
 \documentclass[{{classes(['type','heading','heading_symmetry','solution','numeration'])}}]{uniexer}
 \usepackage{a4wide}
 \usepackage[utf8]{inputenc}

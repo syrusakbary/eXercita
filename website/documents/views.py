@@ -22,7 +22,7 @@ from django.shortcuts import redirect
 class DocumentDetailView(DetailView):
     queryset = Document.objects.all()
     template_name = template_name="documents/document_detail.haml"
-   #  def get_object(self):
+#      def get_object(self):
 #         # Call the superclass
 #         object = super(AuthorDetailView, self).get_object()
 #         # Record the last accessed date
@@ -66,7 +66,7 @@ def thumb(request,pk,size,i):
         from PIL import Image, ImageOps
     except ImportError:
         import Image
-        import ImageOps
+#        import ImageOps
     image =  os.path.join(EXERCITA['DOCUMENTS'],str(pk),'thumbnail_%s_%d_%d.png'%(i,580,816))
     img = Image.open(image)
     img.save(response, "PNG")
@@ -141,12 +141,16 @@ def create(request):
         'form': form,
         'exercises':exercises,
     },RequestContext(request))
-         # An unbound form
-    #return HttpResponse(simplejson.dumps(get_exercises(d['exercises'])))
+# An unbound form
+#    return HttpResponse(simplejson.dumps(get_exercises(d['exercises'])))
     
 
-def download (request,pk):
-    return HttpResponse('Descarga del documento')
+def download (request,pk,format):
+    from sendfile import sendfile
+    document = Document.objects.get(id=pk)
+    file = document.path(format)
+    return sendfile(request, file, attachment=True, attachment_filename='document.tex')
+    #return HttpResponse('Descarga del documento')
     
 def find(request):
     '''

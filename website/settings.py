@@ -216,7 +216,8 @@ EXERCITA = {
     'DOCUMENTS': os.path.join(ROOT_PATH,'../static/documents/'),
     'BIN' : 'latex %s'
 }
-
+SENDFILE_BACKEND = 'sendfile.backends.simple'
+SENDFILE_ROOT =  os.path.join(ROOT_PATH,'../')
 #from django.template.defaultfilters import slugify
 #SOCIAL_AUTH_USERNAME_FIXER = lambda u: slugify(u)
 

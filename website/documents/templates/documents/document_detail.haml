@@ -17,17 +17,18 @@
                     %i.author= object.author
                 #document-info.grid_6
                     %p= object.description
-                    %a.button-big{'href':''}
+                    %a.button-big{'href':'{{ url("document_download",pk=object.id,format="pdf")}}'}
                         %span
                             %span.icon.download
                             %b.title Descarga el documento
                             %span.subtitle Formato PDF
+                    %a.ancillaryLink{'href':'{{ url("document_download",pk=object.id,format="latex")}}'} Descargar latex
         - elif object.state == 'PR'
             %h1= object.title
             %h2 Procesando documento
             %span
                 Si lo desea puede descargar el archivo latex haciendo click
-                %a.download{"href":'{{ url("document_latex",pk=object.id)}}'} aquí 
+                %a.download{"href":'{{ url("document_download",pk=object.id,format="latex")}}'} aquí 
         - else
             %h1= object.title
             %h2 Error al procesar el documento
