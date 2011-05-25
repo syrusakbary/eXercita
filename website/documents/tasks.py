@@ -51,7 +51,7 @@ class CreateRelated(threading.Thread):
 
     def make_images(self):
         #/opt/local/bin/dvipng
-        s = Popen(['/opt/local/bin/dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
         pattern = re.compile("\[(\d+)\]")
         images = pattern.findall(s)
         pages = len(images)
