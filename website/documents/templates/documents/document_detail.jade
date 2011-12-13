@@ -1,0 +1,53 @@
+extends "base.jade"
+- set title=object.title
+block container
+    .container_16
+        if object.state == 'OK'
+            h1#document-title.grid_10= object.title|capitalize
+            .clear
+            #document-details
+                #document-preview.grid_10
+                    .shadow.left
+                    .shadow.right
+                    #document-nav
+                    #document-slideshow: for ir in range(object.pages)
+                        img(src='{{ url("document_thumb",pk=object.pk,size="big",i=ir+1)}}')
+                    i.author= object.author
+                #document-info.grid_6
+                    p= object.description
+                    a.button-big(href='{{ url("document_download",pk=object.id,format="pdf")}}')
+                        span
+                            span.icon.download
+                            b.title Descarga el documento
+                            span.subtitle Formato PDF
+                    a.ancillaryLink(href='{{ url("document_download",pk=object.id,format="latex")}}') Descargar latex
+        - elif object.state == 'PR'
+            h1= object.title
+            h2 Procesando documento
+            span
+                | Si lo desea puede descargar el archivo latex haciendo click
+                a.download(href='{{ url("document_download",pk=object.id,format="latex")}}') aquí
+        - else
+            h1= object.title
+            h2 Error al procesar el documento
+            .traceback= object.data['traceback']|linebreaks
+
+- block scripts
+    = super()
+    - include_media "scripts/joined.js"
+    script
+        $('#document-slideshow').cycle({
+            pager:  '#document-nav',timeout:8000,speed:800}
+        );
+    if object.state == 'PR'
+        script
+              check = function () {
+                $.getJSON("{{url('document_ready')}}",{
+                  id:{{object.id}}
+                },function(data){
+                  if (data['ready']) window.location = '{{ url("document_detail",pk=object.id)}}';
+                  setTimeout( check, 1000);
+                });
+                
+              }
+              check();

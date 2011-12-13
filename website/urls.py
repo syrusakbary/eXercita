@@ -23,7 +23,7 @@ from django.views.generic import TemplateView
     
 urlpatterns = patterns('',
     # Example:
-    url(r'^$',  TemplateView.as_view(template_name='main.haml'),name='main'),
+    url(r'^$',  TemplateView.as_view(template_name='main.jade'),name='main'),
     (r'^documentos/', include('documents.urls')),
     (r'^ejercicios/', include('exercises.urls')),
     #url(r'^documents/$', 'documents.views.explore',name="documents-explore"),
@@ -33,9 +33,9 @@ urlpatterns = patterns('',
     # (r'^exercita/', include('exercita.foo.urls')),s
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
-    (r'^accounts/login/$', 'django.contrib.auth.views.login',{'template_name':'registration/login.haml'}),
+    (r'^accounts/login/$', 'django.contrib.auth.views.login',{'template_name':'registration/login.jade'}),
     url(r'^accounts/profile/$',  TemplateView.as_view(template_name='account.haml')),
-    (r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'template_name':'registration/logged_out.haml'}),
+    (r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'template_name':'registration/logged_out.jade'}),
 
     # Uncomment the next line to enable the admin:
     url(r'', include('social_auth.urls')),

@@ -21,7 +21,7 @@ from django.shortcuts import redirect
 
 class DocumentDetailView(DetailView):
     queryset = Document.objects.all()
-    template_name = template_name="documents/document_detail.haml"
+    template_name = template_name="documents/document_detail.jade"
 #      def get_object(self):
 #         # Call the superclass
 #         object = super(AuthorDetailView, self).get_object()
@@ -33,10 +33,10 @@ class DocumentDetailView(DetailView):
         
 #from coffin.shortcuts import render_to_response
 def explore(request):
-    return render_to_response('documents/explore.html')
+    return render_to_response('documents/explore.jade')
     
 def document(request,pk):
-    return render_to_response('documents/document.html')
+    return render_to_response('documents/document.jade')
 
 def get_exercises (e):
     e = e.split(';')
@@ -110,7 +110,7 @@ def edit(request,pk=False):
         exercises = simplejson.dumps(doc.exercises())
         form = DocumentForm(d) # An unbound form
     #return HttpResponse(simplejson.dumps(get_exercises(d['exercises'])))
-    return render_to_response('documents/document_edit.haml', {
+    return render_to_response('documents/document_edit.jade', {
         'form': form,
         'exercises':exercises,
     },RequestContext(request))
@@ -139,7 +139,7 @@ def create(request):
         d = {}
         exercises = False
         form = DocumentForm()
-    return render_to_response('documents/document_edit.haml', {
+    return render_to_response('documents/document_edit.jade', {
         'form': form,
         'exercises':exercises,
     },RequestContext(request))

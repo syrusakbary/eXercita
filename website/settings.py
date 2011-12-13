@@ -101,11 +101,13 @@ TEMPLATE_CONTEXT_PROCESSORS = (
 )
 
 AUTHENTICATION_BACKENDS = (
-    'social_auth.backends.google.GoogleBackend',
+    # 'social_auth.backends.google.GoogleBackend',
+    'authbackend.UCMBackend',
     'django.contrib.auth.backends.ModelBackend',
 )
 
 MIDDLEWARE_CLASSES = (
+    'mediagenerator.middleware.MediaMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     #'django.middleware.csrf.CsrfViewMiddleware',
@@ -195,7 +197,7 @@ GLOBAL_MEDIA_DIRS = (
 )
 
 
-MEDIA_DEV_MODE = False
+MEDIA_DEV_MODE = True
 DEV_MEDIA_URL = '/devmedia/'
 PRODUCTION_MEDIA_URL = 'http://static.exercita.local/'
 
@@ -211,6 +213,11 @@ if os.path.exists(YUICOMPRESSOR_PATH):
 JINJA2_ENVIRONMENT_OPTIONS = {
     'autoescape': False,
 }
+JINJA2_EXTENSIONS = (
+    'mediagenerator.contrib.jinja2ext.MediaExtension',
+    'pyjade.ext.jinja.PyJadeExtension',
+)
+
 EXERCITA = {
     'PATH' : '/usr/share/exercita/',
     'DATABASE': '/Users/syrus/Proyectos/exercita/exercita-db',
