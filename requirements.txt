@@ -14,3 +14,4 @@ django-mediagenerator
 https://github.com/jessemiller/HamlPy/tarball/master
 
 PIL
+pyjade

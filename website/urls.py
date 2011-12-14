@@ -34,7 +34,7 @@ urlpatterns = patterns('',
     # Uncomment the admin/doc line below to enable admin documentation:
     # (r'^admin/doc/', include('django.contrib.admindocs.urls')),
     (r'^accounts/login/$', 'django.contrib.auth.views.login',{'template_name':'registration/login.jade'}),
-    url(r'^accounts/profile/$',  TemplateView.as_view(template_name='account.haml')),
+    url(r'^accounts/profile/$',  TemplateView.as_view(template_name='account.jade')),
     (r'^accounts/logout/$', 'django.contrib.auth.views.logout',{'template_name':'registration/logged_out.jade'}),
 
     # Uncomment the next line to enable the admin:
