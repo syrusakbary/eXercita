@@ -36,3 +36,11 @@ a.document_new {
 	display:block;
 	padding:6px 10px;
 }
+
+.traceback {
+    overflow: auto;
+    max-height: 400px;
+    background: white;
+    border: 1px solid #CCC;
+    padding: 12px;
+}
