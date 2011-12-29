@@ -3,6 +3,10 @@ import os
 import re
 from subprocess import call, PIPE, Popen
 from django.conf import settings
+class CompileException(Exception):
+    def __init__(self, log):
+        super(CompileException,self).__init__('Error al compilar el documento - %s'%log)
+        self.log = log
 
 class CreateRelated(threading.Thread):
     def __init__(self, instance):
@@ -26,6 +30,14 @@ class CreateRelated(threading.Thread):
             self.make_pdf()
             self.make_images()
             self.instance.state = 'OK'
+        
+        except CompileException as e:
+            self.instance.state = 'ER'
+            self.instance.data['error'] = e
+            f = open(e.log, "r")
+            self.instance.data['traceback'] =  f.read()
+            f.close()
+
         except Exception as e:
             self.instance.state = 'ER'
             self.instance.data['error'] = e
@@ -53,7 +65,7 @@ class CreateRelated(threading.Thread):
         if match:
             self.instance.pages = int(match.group(1))
         else:
-            raise Exception('Error al compilar el documento - %s'%self.instance.file('document.log'))
+            raise CompileException(self.instance.file('document.log'))
     def make_pdf(self):
         #pass
         #,'-o','document.pdf'
