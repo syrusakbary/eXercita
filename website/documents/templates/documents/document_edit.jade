@@ -94,6 +94,7 @@ block scripts
         $(window).hashchange(function () {
             var hash = location.hash;
             setEditSection(hash);
+            $.waypoints('refresh');
         });
 
         $(document).ready(function () {
@@ -101,7 +102,7 @@ block scripts
             $("#document-preview-exercices").waypoint(function (event, direction) {
                 $(this).parent().toggleClass('sticky', direction === "down");
                 event.stopPropagation();
-            },{offset: 20}).removeClass('sticky');
+            },{offset: 20});
 
             var $exercises = $('#document-preview-exercices .exercices');
             add = function (exercise) {
