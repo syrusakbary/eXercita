@@ -1,0 +1,2 @@
+from haystack.query import SearchQuerySet
+s = SearchQuerySet()

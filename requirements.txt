@@ -1,9 +1,16 @@
-Django
-Jinja2==2.5.5
-#boto
-Djinja
+# Main packages
 
-#http://downloads.sourceforge.net/project/plastex/plastex/rel-0-9-2/plastex-0.9.2.tgz?r=http%3A%2F%2Fsourceforge.net%2Fprojects%2Fplastex%2Ffiles%2Fplastex%2Frel-0-9-2%2F&ts=1304424112&use_mirror=sunet
+Django
+
+
+# Template Extras
+
+Jinja2==2.5.5
+Djinja
+pyjade
+
+
+# Utilities
 
 django-piston
 django-social-auth
@@ -11,7 +18,17 @@ django-picklefield
 django-sendfile
 django-mediagenerator
 
-https://github.com/jessemiller/HamlPy/tarball/master
 
+# Search Engine
+
+-e git://github.com/toastdriven/django-haystack.git#egg=django-haystack
+-e git://github.com/toastdriven/pyelasticsearch.git#egg=pyelasticsearch
+
+
+# Image processor
 PIL
-pyjade
+
+
+# LDAP auth
+
+python-ldap

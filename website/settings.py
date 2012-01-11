@@ -145,6 +145,7 @@ INSTALLED_APPS = (
     'djinja.contrib.admin',
     'django.contrib.admin',
     'social_auth',
+    'haystack',
     # Uncomment the next line to enable admin documentation:
     # 'django.contrib.admindocs',
 )
@@ -185,7 +186,8 @@ MEDIA_BUNDLES = (
     ),
     ('scripts/joined.js',
         'scripts/jquery.ba-hashchange.min.js',
-        'scripts/jquery.cycle.min.js'
+        'scripts/jquery.cycle.min.js',
+        'scripts/jquery.waypoints.min.js',
     ),
     #('js/page.js',
     #    'js/jquery.tweet.js'
@@ -229,7 +231,22 @@ SENDFILE_ROOT =  os.path.join(ROOT_PATH,'../')
 #from django.template.defaultfilters import slugify
 #SOCIAL_AUTH_USERNAME_FIXER = lambda u: slugify(u)
 
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.elasticsearch_backend.ElasticsearchSearchEngine',
+        'URL': 'http://127.0.0.1:9200/',
+        'INDEX_NAME': 'exercita',
+    },
+    # 'whoosh': {
+    #     'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+    #     'PATH': os.path.join(ROOT_PATH,'../search/whoosh_index'),
+    #     'STORAGE': 'file',
+    #     'INCLUDE_SPELLING': True,
+    #     'BATCH_SIZE': 100,
+    # },
+}
+
 try:
     from local_settings import *
-except Exception:
+except ImportError:
     pass

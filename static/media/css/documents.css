@@ -36,11 +36,58 @@ a.document_new {
 	display:block;
 	padding:6px 10px;
 }
-
+.exercise_list .e {
+    position:relative;
+}
 .traceback {
     overflow: auto;
     max-height: 400px;
     background: white;
     border: 1px solid #CCC;
     padding: 12px;
+}
+.e .exercise-add {
+    position:absolute;
+    width:150px;
+    height:100%;
+    background:blue;
+    text-indent:-10000px;
+    right:0;
+    opacity:0;
+    background: url('../images/round_plus.png') no-repeat center right, -webkit-gradient(linear, 0% 0%, 60% 0%, from(rgba(230, 230, 230,0)), to(rgba(230, 230, 230,1)));
+    -webkit-transition: opacity .05s linear;
+    -moz-transition: opacity .05s linear;
+    -ms-transition: opacity .05s linear;
+    cursor:hand;
+    cursor:pointer;
+}
+.e:hover .exercise-add {
+    opacity:1;
+}
+.exercices li {
+    position:relative;
+}
+.exercices .delete {
+    float:right;
+    opacity:0;
+    position:absolute;
+    right:4px;
+    top:10px;
+}
+.exercices li:hover .delete {
+    opacity:1;
+}
+.e em {
+    background: #f1e767; /* Old browsers */
+    background: -moz-linear-gradient(top, #f1e767 0%, #feb645 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#f1e767), color-stop(100%,#feb645)); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #f1e767 0%,#feb645 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #f1e767 0%,#feb645 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #f1e767 0%,#feb645 100%); /* IE10+ */
+    background: linear-gradient(top, #f1e767 0%,#feb645 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f1e767', endColorstr='#feb645',GradientType=0 ); /* IE6-9 */
+    font-style:normal;
+    border-radius:4px;
+    box-shadow:0 1px 4px rgba(0,0,0,.5);
+    padding:3px;
 }

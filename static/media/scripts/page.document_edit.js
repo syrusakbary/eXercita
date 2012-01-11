@@ -1,82 +1,3 @@
-extends "base.jade"
-set title="Documentos"
-
-macro draw_fields(names)
-    for field in names
-        set field = form[field]
-        div(class='{{"error" if field.errors|count}}')
-            = field.label_tag(attrs={'class':" grid_5 main "})
-            .grid_11
-                = field
-                = field.errors
-                if field.help_text
-                    .help= field.help_text
-            .clear
-
-block container
-    ul#edit-bar
-        li
-            a(href='#basic')
-                span.wrapper
-                    span.icon.basic
-                    | Datos básicos
-        li
-            a(href='#properties')
-                span.wrapper
-                    span.icon.properties
-                    | Propiedades
-        li
-            a(href='#style')
-                span.wrapper
-                    span.icon.style
-                    | Formato
-        li
-            a(href='#params')
-                span.wrapper
-                    span.icon.params
-                    | Parámetros
-        li
-            a(href='#exercices')
-                span.wrapper
-                    span.icon.exercices
-                    | Ejercicios
-                
-    form#document-form(action='' method='post')
-        - csrf_token
-        #edit-content.container_16
-            #edit-basic.inner= draw_fields(['title','description'])
-            #edit-properties.inner= draw_fields(['type','heading','heading_symmetry','solution','numeration'])
-            #edit-style.inner= draw_fields(['doc_part_style','doc_example_style','doc_hint_style','doc_bibliography_style','doc_history_style'])
-            #edit-params.inner= draw_fields(['doc_number','doc_title','doc_epilog','date','academic_year','subject','semester','group','degree','institution'])
-            #edit-exercices.inner
-                .grid_5
-                    .preview-wrapper.grid_5.alpha.omega
-                        #document-preview-exercices
-                            .shadow.left
-                            .shadow.right
-                            span.noexercices Aún no ha añadido ningún ejercicio
-                            ul.exercices
-                            = form['exercises']
-                            = form['exercises'].errors
-                
-                        .help Puedes arrastrar los ejercicios para posicionarlos
-                .grid_11
-                    input#instant-exercices.defaultText(type='text' name='search' title='Filtrar...' autocomplete='off')
-                    img.loader(src='{{media_url("images/loader.gif")}}')
-                    ol.exercise_list
-                    a.load_more Cargar más
-            .clear
-        #edit-footer.container_16
-            .prefix_5.grid_11
-                input(type='submit' value='Guardar')
-
-
-
-block scripts
-    = super()
-    - include_media "scripts/joined.js"
-    script(type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js")
-    script
         function setEditSection(hash) {
             if (str = hash.match(/^#(\w+)/)) {
                 var name = str[1];
@@ -101,7 +22,7 @@ block scripts
             $("#document-preview-exercices").waypoint(function (event, direction) {
                 $(this).parent().toggleClass('sticky', direction === "down");
                 event.stopPropagation();
-            },{offset: 20});
+            });
 
             var $exercises = $('#document-preview-exercices .exercices');
             add = function (exercise) {
@@ -136,9 +57,15 @@ block scripts
                 $.each(exercises, function (index, exercise) {
                     add(exercise);
                 });
+            } { %
+                if exercises %
             }
-            {% if exercises %}addMultiple({{exercises}});{% endif %}
-
+            addMultiple({
+                {
+                    exercises
+                }
+            }); { % endif %
+            }
 
             function checkExercises() {
                 exers = []

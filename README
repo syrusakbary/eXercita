@@ -22,3 +22,5 @@ python manage.py syncdb
 
 apt-get install libapache2-mod-wsgi
 a2enmod wsgi
+
+http://www.elasticsearch.org/tutorials/2010/07/02/setting-up-elasticsearch-on-debian.html
