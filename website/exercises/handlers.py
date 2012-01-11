@@ -13,9 +13,9 @@ class ExercisesHandler(BaseHandler):
         baseq = q = request.GET['q']
         if q == '': return {}
         q += '*'
-        p = int(request.GET.get('p',1))-1
+        p = int(request.GET.get('p',1))
         show = 10
-        init = p*show
+        init = (p-1)*show
         end = init+show
         #raise Exception (q)
         if False:

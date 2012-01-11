@@ -278,6 +278,25 @@ box-shadow: 0 1px 8px rgba(0,0,0,.2);}
     left: 100%;
 }
 #edit-content .shadow.left { right: 100% }
+#edit-content .load_more {
+    display: block;
+    font-size: 14px;
+    background: white;
+    border: none;
+    margin: 0;
+    padding: 5px 8px;
+    color: #111;
+    width: 100%;
+    text-align: center;
+    border: 1px solid #DDD;
+}
+.exercise_list .separator {
+    height: 1px;
+    display: block;
+    width: 100%;
+    border-bottom: 1px solid #CCC;
+    margin: 12px 0;
+}
 #document-preview-exercices .exercices { padding: 10px }
 #document-preview-exercices .exercices li {
     border: 1px dotted #CCC;

@@ -168,6 +168,9 @@ block scripts
             function showResults(data, empty) {
                 //console.log(data);
                 if (empty) exercises.empty();
+                else $('<li class="separator"></li>').appendTo(exercises);
+                    
+                var top = exercises.offset().top+exercises.height();
                 $.each(data.exercises, function (index, exercise) {
                     elem = $('<li class="e" id="exercise-' + exercise.id + '"><h3>' + exercise.title + '</h3><a class="exercise-add"><span>Añadir</span></a><div class="s">' + exercise.description + '</div><div class="path">' + exercise.path + '</div></li>');
                     elem.find('.exercise-add').click(function (e) {
@@ -179,6 +182,7 @@ block scripts
                     else load_more.hide();
                     exercises.append(elem);
                 });
+                if (!empty) $("html:not(:animated),body:not(:animated)").animate({ scrollTop: top}, 500 );
             }
             var runningRequest = false;
             var request;
