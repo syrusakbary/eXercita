@@ -19,6 +19,10 @@ grant all on exercita.* to exercita@localhost;
 
 
 python manage.py syncdb
+python manage.py generatemedia
+
+
+python manage.py rebuild_index
 
 apt-get install libapache2-mod-wsgi
 a2enmod wsgi

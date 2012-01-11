@@ -256,7 +256,7 @@ input[type=submit] { font-size: 18px }
     position: relative;
     min-height: 220px;
 }
-.preview-wrapper.sticky {
+.show .preview-wrapper.sticky {
     position:fixed;
     top:20px;
 }

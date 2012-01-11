@@ -101,7 +101,7 @@ block scripts
             $("#document-preview-exercices").waypoint(function (event, direction) {
                 $(this).parent().toggleClass('sticky', direction === "down");
                 event.stopPropagation();
-            },{offset: 20});
+            },{offset: 20}).removeClass('sticky');
 
             var $exercises = $('#document-preview-exercices .exercices');
             add = function (exercise) {
