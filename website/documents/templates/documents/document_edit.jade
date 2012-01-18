@@ -63,6 +63,7 @@ block container
                 .grid_11
                     input#instant-exercices.defaultText(type='text' name='search' title='Filtrar...' autocomplete='off')
                     img.loader(src='{{media_url("images/loader.gif")}}')
+                    span.num_results(data-single='1 resultado encontrado' data-plural='{num} resultados encontrados' data-none='No hay resultados para tu búsqueda')
                     ol.exercise_list
                     a.load_more Cargar más
             .clear
@@ -164,9 +165,13 @@ block scripts
 
             var exercises = $('.exercise_list');
             var load_more = $('.load_more');
-
+            var num_results = $('.num_results');
             function showResults(data, empty) {
-                //console.log(data);
+                console.log(data);
+                num = data.results
+                format_results = {0:'data-none',1:'data-single',2:'data-plural'}
+                attr = format_results[Math.min(num,2)];
+                num_results.text(num_results.attr(attr).replace('{num}',num));
                 if (empty) exercises.empty();
                 else $('<li class="separator"></li>').appendTo(exercises);
                     
@@ -178,10 +183,10 @@ block scripts
                         add(exercise);
                         updateExercices($("#document-preview-exercices .exercices"));
                     });
-                    if (data.more) load_more.data('next', data.more).show();
-                    else load_more.hide();
                     exercises.append(elem);
                 });
+                if (data.more) load_more.data('next', data.more).show();
+                else load_more.hide();
                 if (!empty) $("html:not(:animated),body:not(:animated)").animate({ scrollTop: top}, 500 );
             }
             var runningRequest = false;

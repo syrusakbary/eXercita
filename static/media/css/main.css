@@ -310,23 +310,26 @@ box-shadow: 0 1px 8px rgba(0,0,0,.2);}
     margin: 0 10px 0 0;
     color: #CCC;
     font-size: 40px;
-    vertical-align: text-top;
     line-height: 32px;
-    width: 24px;
     height: 32px;
+    float: left;
 }
 #document-preview-exercices .noexercices {
     padding: 20px;
     display: inline-block;
 }
-#document-preview-exercices .exercices li:hover span { text-indent: -10000px }
-#document-preview-exercices .exercices b {
+/*#document-preview-exercices .exercices li:hover span { text-indent: -10000px }
+*/#document-preview-exercices .exercices b {
+    max-width:170px;
     font-family: 'Museo Sans 500', serif;
     font-size: 16px;
+    display: block;
     color: black;
+    float: left;
     font-weight: normal;
 }
 #document-preview-exercices dl {
+    clear: both;
     position: relative;
     margin-left: 30px;
 }
