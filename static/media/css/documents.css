@@ -55,7 +55,7 @@ a.document_new {
     right:0;
     opacity:0;
     background: url('../images/round_plus.png') no-repeat center right, -webkit-gradient(linear, 0% 0%, 60% 0%, from(rgba(230, 230, 230,0)), to(rgba(230, 230, 230,1)));
-    background: url('../images/round_plus.png') no-repeat center right, -moz-gradient(linear, 0% 0%, 60% 0%, from(rgba(230, 230, 230,0)), to(rgba(230, 230, 230,1)));
+    background: url('../images/round_plus.png') no-repeat center right, -moz-linear-gradient(to right, rgba(230, 230, 230, 0), rgb(230, 230, 230) 60%);
     -webkit-transition: opacity .05s linear;
     -moz-transition: opacity .05s linear;
     -ms-transition: opacity .05s linear;
