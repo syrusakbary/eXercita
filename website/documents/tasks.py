@@ -87,7 +87,7 @@ class CreateRelated(threading.Thread):
             
         from documents.models import IMAGE_SIZE
         sizes = IMAGE_SIZE.values()
-        for i in range(1,self.instance.pages+1):
+        for i in range(self.instance.pages):
             image = Image.open(self.instance.file('preview_%s.png'%i))
             for size in sizes:
                 im = image.copy()
