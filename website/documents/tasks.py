@@ -69,11 +69,12 @@ class CreateRelated(threading.Thread):
     def make_pdf(self):
         #pass
         #,'-o','document.pdf'
-        s = Popen(['dvipdfm', 'document.dvi'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['dvips', 'document.dvi'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['ps2pdf', 'document.ps'],cwd=self.instance.base(), stdout=PIPE, stderr=PIPE).communicate()[0]
         
     def make_images(self):
         #/opt/local/bin/dvipng
-        s = Popen(['dvipng', 'document.dvi','-o','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
+        s = Popen(['convert', 'document.ps','preview_%d.png'],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
         #pattern = re.compile("\[(\d+)\]")
         #images = pattern.findall(s)
         #pages = len(images)
