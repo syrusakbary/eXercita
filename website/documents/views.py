@@ -69,7 +69,7 @@ def thumb(request,pk,size,i):
 #        import ImageOps
     from documents.models import IMAGE_SIZE
     size = IMAGE_SIZE[size]
-    image =  os.path.join(EXERCITA['DOCUMENTS'],str(pk),'thumbnail_%s_%d_%d.png'%(i,size[0],size[1]))
+    image =  os.path.join(EXERCITA['DOCUMENTS'],str(pk),'thumbnail_%s_%d_%d.png'%(i-1,size[0],size[1]))
     img = Image.open(image)
     img.save(response, "PNG")
     return response

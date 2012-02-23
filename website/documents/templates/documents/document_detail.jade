@@ -11,7 +11,7 @@ block container
                     .shadow.right
                     #document-nav
                     #document-slideshow: for ir in range(object.pages)
-                        img(src='{{ url("document_thumb",pk=object.pk,size="big",i=ir)}}')
+                        img(src='{{ url("document_thumb",pk=object.pk,size="big",i=ir+1)}}')
                     i.author= object.author
                 #document-info.grid_6
                     p= object.description
