@@ -80,7 +80,7 @@ class CreateRelated(threading.Thread):
         for size in sizes:
             #raise CompileException(str(['convert', '-geometry %dx%d'%size,'document.ps','thumbnail_%%d_%d_%d.png'%size]))
             size = tuple(size)
-            s = Popen(['convert', '-geometry %dx%d'%size,'document.ps','thumbnail_%%d_%d_%d.png'%size],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
+            s = Popen(['convert', '-geometry','%dx%d'%size,'document.ps','thumbnail_%%d_%d_%d.png'%size],cwd=self.base, stdout=PIPE, stderr=PIPE).communicate()[0]
         #pattern = re.compile("\[(\d+)\]")
         #images = pattern.findall(s)
         #pages = len(images)
