@@ -146,6 +146,15 @@ def create(request):
 # An unbound form
 #    return HttpResponse(simplejson.dumps(get_exercises(d['exercises'])))
     
+@login_required
+def delete(request,pk):
+    document = Document.objects.get(id=pk)
+    if request.POST:
+        if request.POST.get('submit-yes'): 
+            document.delete()
+        return redirect('document_list')
+    return render_to_response('documents/document_delete.jade',{'object':document},RequestContext(request))
+    #return redirect('document_list', pk=doc.pk)
 
 def download (request,pk,format):
     from sendfile import sendfile

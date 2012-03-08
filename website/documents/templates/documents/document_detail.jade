@@ -21,6 +21,8 @@ block container
                             b.title Descarga el documento
                             span.subtitle Formato PDF
                     a.ancillaryLink(href='{{ url("document_download",pk=object.id,format="latex")}}') Descargar latex
+                    if user.is_active -
+                        a.ancillaryLink(href='{{ url("document_delete",pk=object.id)}}') Eliminar documento
         - elif object.state == 'PR'
             h1= object.title
             h2 Procesando documento

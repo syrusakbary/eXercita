@@ -1,0 +1,9 @@
+extends "base.jade"
+- set title=object.title
+block container
+    .container_16
+        h1= object.title|capitalize
+        h2 ¿Seguro que desea eliminar este documento? 
+        form(method='POST')
+            input(type='submit' name="submit-yes" value="SI")
+            input(type='submit' name="submit-no" value="NO")
