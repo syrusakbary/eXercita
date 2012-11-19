@@ -1,34 +1,20 @@
-# Main packages
-
-Django
-
-
-# Template Extras
-
-Jinja2==2.5.5
-Djinja
-pyjade
-
-
-# Utilities
-
-django-piston
-django-social-auth
-django-picklefield
-django-sendfile
-django-mediagenerator
-
-
-# Search Engine
-
--e git://github.com/toastdriven/django-haystack.git#egg=django-haystack
--e git://github.com/toastdriven/pyelasticsearch.git#egg=pyelasticsearch
-
-
-# Image processor
-PIL
-
-
-# LDAP auth
-
-python-ldap
+Django==1.4.1
+Djinja==0.7
+Jinja2
+MySQL-python
+Pillow
+argparse==1.2.1
+-e git://github.com/toastdriven/django-haystack.git@48f0549f97284b361c667d31ee2a85e808e84093#egg=django_haystack-dev
+django-mediagenerator==1.11
+django-picklefield==0.2.1
+django-piston==0.2.3
+django-sendfile==0.3.0
+django-social-auth==0.7.6
+httplib2
+oauth2==1.5.211
+-e git://github.com/toastdriven/pyelasticsearch.git@3bfe1a90eab6c2dfb0989047212f4bc9fb814803#egg=pyelasticsearch-dev
+pyjade==0.6.1
+python-ldap==2.4.10
+python-openid==2.2.5
+requests==0.14.0
+wsgiref==0.1.2
